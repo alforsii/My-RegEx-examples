@@ -34,7 +34,7 @@ word = 'This is regex example string';
 //******************************************* */
 reg1 = /e/g; //global - finds all match
 word = 'This is regex example string';
-// console.log(word.replace(reg1, 'y')); //'This is rygyx yxamply string'//first found letter 'e' was replaced
+// console.log(word.replace(reg1, 'y')); //'This is rygyx yxamply string'//all found letter 'e' was replaced
 //******************************************* */
 reg1 = /e..x/g; //match all e and x between 2 char's
 word = 'This is regex example string for regex';
@@ -269,11 +269,12 @@ newArr = arr.map(name => {
 // console.log('Output for: newArr', newArr);
 // ["FOUND", "FOUND", "FOUND", "FOUND", "FOUND", "FOUND", "FOUND", "MrA"]
 /M(r|s|rs)\.?\s[A-Za-z]\w*/g;
-// look for capital 'M' after which comes 'r' or 's' or 'rs'
-// after which '.' or nothing
-// after which 'white space'
-// after which capital or lowerCase letter
-// after which 0 or more word
+// look for capital 'M'
+// after which comes 'r' or 's' or 'rs' -> (r|s|rs)
+// after which '.' or nothing -> \.
+// after which 'white space'   -> \s
+// after which capital or lowerCase letter -> [A-Za-z]
+// after which 0 or more word --> \w*
 //---------------------------------------------
 newArr = arr.map(name => {
   let regex = /(M(r|s|rs))\.?\s([A-Za-z]\w*)/g;
