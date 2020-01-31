@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>RegEx</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div>
+      Birthday: invalid format will be red, valid is green
+      <br />
+      format could be with or without dashes, first 2 digit also could be one or
+      two
+      <br />
+      <input
+        type="text"
+        size="50"
+        placeholder="invalid date turns red"
+        pattern="\d?\d-?\d\d-?\d\d\d\d"
+      />
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
