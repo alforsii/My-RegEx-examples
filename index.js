@@ -140,3 +140,158 @@ reg2 = /I am/g;
 // console.log(str.replace(reg2, 'We are')); //We are student. And We are a web developer
 reg2 = /I am(?= a web developer)/g;
 // console.log(str.replace(reg2, 'We are')); //I am student. And We are a web developer
+//***************************** */
+str = 'iron.com, email.com';
+reg2 = /./; //this will match any first appeared char only
+// console.log(str.replace(reg2, 'MATCH')); //MATCHron.com, email.com
+//***************************** */
+str = 'iron.com, email.com';
+reg2 = /\./; //this will match only the first dot
+// console.log(str.replace(reg2, 'MATCH')); //ironMATCHcom, email.com
+//***************************** */
+str = 'iron.com, email.com';
+reg2 = /\./g; //this will match all the dots
+// console.log(str.replace(reg2, 'MATCH')); //ironMATCHcom, emailMATCHcom
+//***************************** */
+str = 'iron.com, email.com';
+reg2 = /./g; //this will match all char's
+// console.log(str.replace(reg2, 'MATCH')); //MATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCHMATCH
+//***************************** */
+let arr = [
+  { name: 'Dave Martin', phone: '615-555-7164' },
+  { name: 'Martin', phone: '615.555.7164' },
+  { name: 'Charles Harris', phone: '800*555*5669' },
+];
+
+let newArr;
+newArr = arr.map(user => {
+  let regex = /\d\d\d.\d\d\d.\d\d\d\d/g;
+  return user.phone.replace(regex, '888-888-8888');
+});
+// console.log('Output for: newArr', newArr); //all phone numbers will be replaced
+//***************************** */
+newArr = arr.map(user => {
+  let regex = /\d\d\d-\d\d\d-\d\d\d\d/g;
+  return user.phone.replace(regex, '888-888-8888');
+});
+// console.log('Output for: newArr', newArr); //only all phone numbers with '-' will be replaced
+//***************************** */
+newArr = arr.map(user => {
+  let regex = /\d\d\d[-.]\d\d\d[-.]\d\d\d\d/g;
+  return user.phone.replace(regex, '888-888-8888');
+});
+// [] - Matches Characters in brackets
+// console.log('Output for: newArr', newArr); //all phone numbers except '*' will be replaced
+//***************************** */
+newArr = arr.map(user => {
+  let regex = /\d\d\d[^-.]\d\d\d[^-.]\d\d\d\d/g;
+  return user.phone.replace(regex, '888-888-8888');
+});
+//[^ ] - Matches Characters NOT in brackets
+// console.log('Output for: newArr', newArr); //all phone numbers except with '-' and '.' will be replaced
+arr = ['615-555-7164', '615.555.7164', '800*555*5669'];
+reg1 = /\d\d\d[^-.]\d\d\d[^-.]\d\d\d\d/g;
+newArr = reg1.test(arr[0]); //false
+newArr = reg1.test(arr[1]); //false
+newArr = reg1.test(arr[2]); //true - this is match
+//[^ ] - Matches Characters NOT in brackets
+// console.log('Output for: newArr', newArr); //all phone numbers except with '-' and '.' will be replaced
+//***************************** */
+arr = [
+  '615-555-7164',
+  '615.555.7164',
+  '800*555*5669',
+  '900*555*5669',
+  '800-222-2222',
+];
+//lets get the number starts with 800 or 900 and with '*'
+newArr = arr.map(phone => {
+  let regex = /[89]00[^-.]\d\d\d[^-.]\d\d\d\d/g;
+  return phone.replace(regex, '888-888-8888');
+});
+// console.log('Output for: newArr', newArr);
+
+//************** { quantifiers } *************** */
+//quantifiers helps to make DRY(don't repeat yourself) code
+newArr = arr.map(phone => {
+  let regex = /\d{3}[^-.]\d{3}[^-.]\d{4}/g;
+  return phone.replace(regex, '888-888-8888');
+});
+// console.log('Output for: newArr', newArr);
+
+//************** ()|\.[] *************** */
+arr = [
+  'Mr. Chaffer',
+  'Mr Smith',
+  'Ms Delves',
+  'Mrs Robins',
+  'Mrs. Julia',
+  'Mr. T',
+  'Mr tj',
+  'MrA',
+];
+//lets see how we can search for specific char
+newArr = arr.map(name => {
+  let regex = /Mr./g;
+  return name.replace(regex, 'FOUND');
+});
+// console.log('Output for: newArr', newArr);
+//---------------------------------------------
+newArr = arr.map(name => {
+  let regex = /Mr\.\s/g;
+  return name.replace(regex, 'FOUND');
+});
+// console.log('Output for: newArr', newArr);
+//---------------------------------------------
+newArr = arr.map(name => {
+  let regex = /Mr\.\s[A-Z]/g;
+  return name.replace(regex, 'FOUND');
+});
+// console.log('Output for: newArr', newArr);
+//---------------------------------------------
+newArr = arr.map(name => {
+  let regex = /Mr\.\s[A-Z]\w/g;
+  return name.replace(regex, 'FOUND');
+});
+// console.log('Output for: newArr', newArr);
+//---------------------------------------------
+newArr = arr.map(name => {
+  let regex = /M(r|s|rs)\.?\s[A-Za-z]\w+/g;
+  return name.replace(regex, 'FOUND');
+});
+// console.log('Output for: newArr', newArr);
+//  ["FOUND", "FOUND", "FOUND", "FOUND", "FOUND", "Mr. T", "FOUND", "MrA"]
+//---------------------------------------------
+newArr = arr.map(name => {
+  let regex = /M(r|s|rs)\.?\s[A-Za-z]\w*/g;
+  return name.replace(regex, 'FOUND');
+});
+// console.log('Output for: newArr', newArr);
+// ["FOUND", "FOUND", "FOUND", "FOUND", "FOUND", "FOUND", "FOUND", "MrA"]
+/M(r|s|rs)\.?\s[A-Za-z]\w*/g;
+// look for capital 'M' after which comes 'r' or 's' or 'rs'
+// after which '.' or nothing
+// after which 'white space'
+// after which capital or lowerCase letter
+// after which 0 or more word
+//---------------------------------------------
+newArr = arr.map(name => {
+  let regex = /(M(r|s|rs))\.?\s([A-Za-z]\w*)/g;
+  //we select groups with $ sign
+  //everything inside () are called groups
+  //group 1 - (M(r|s|rs))
+  //group 2 -  (r|s|rs)
+  //group 3 - ([A-Za-z]\w*)
+  //   return name.replace(regex, '$1');
+  return name.replace(regex, '$3'); //we get the actual names - the second word in the string
+});
+console.log('Output for: newArr', newArr);
+//when we select $1 - group 1
+// ["Mr", "Mr", "Ms", "Mrs", "Mrs", "Mr", "Mr", "MrA"]
+//when we select $2 - group 2
+// ["r", "r", "s", "rs", "rs", "r", "r", "MrA"]
+//when we select $3 - group 3
+// ["Chaffer", "Smith", "Delves", "Robins", "Julia", "T", "tj", "MrA"]
+//when we select $4 - group 4 which we don't have
+// ["$4", "$4", "$4", "$4", "$4", "$4", "$4", "MrA"]
+//this is good features of the regex for filtering strings
